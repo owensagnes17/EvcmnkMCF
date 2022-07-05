@@ -8,7 +8,6 @@ import (
 	"github.com/Dreamacro/clash/tunnel"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/render"
 )
 
 func proxyProviderRouter() http.Handler {
@@ -59,8 +58,6 @@ func parseProviderName(next http.Handler) http.Handler {
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
-
-func findProviderByName(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		name := r.Context().Value(CtxKeyProviderName).(string)
 		providers := tunnel.Providers()
